@@ -13,8 +13,9 @@ $mysqli_db = new mysqli('localhost', 'root', '', $database ?: 'employees');
  * @return boolean|array array of associative arrays - query results for select
  *     otherwise true or false for insert/update/delete success
  */
-function query($sql) {
+function query($sql, $where, $bindings) {
     global $mysqli_db;
+    // run parameter bindings prior to query
     $result = $mysqli_db->query($sql);
     if (!is_object($result)) {
         return $result;

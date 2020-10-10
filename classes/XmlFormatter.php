@@ -1,0 +1,30 @@
+<?php namespace classes;
+
+class XmlFormatter implements \contract\Formatable
+{
+  /**
+  * format the data with xml
+  *
+  * @param \stdClass $data
+  * @return void
+  */
+  public function format($data)
+  {
+    $keyMap = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    $xmlData = [];
+    foreach ($data->all() as $row) {
+        $xmlRow = [];
+        foreach ($row as $key => $value) {
+            $key = preg_replace_callback('(\d)', function($matches) use ($keyMap) {
+                return $keyMap[$matches[0]] . '_';
+            }, $key);
+            $xmlRow[$key] = $value;
+        }
+        $xmlData[] = $xmlRow;
+    }
+    $xml = Array2XML::createXML('data', [
+        'entry' => $xmlData
+    ]);
+    return $xml->saveXML();
+  }
+}
