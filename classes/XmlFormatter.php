@@ -5,10 +5,10 @@ class XmlFormatter implements \contract\Formatable
   /**
   * format the data with xml
   *
-  * @param \stdClass $data
+  * @param \contract\ActiveRecord $data
   * @return void
   */
-  public function format($data)
+  public function format(ActiveRecord $data)
   {
     $keyMap = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
     $xmlData = [];
